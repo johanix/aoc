@@ -35,7 +35,8 @@ var day1aCmd = &cobra.Command{
 			}
 			previous = n
 		}
-		fmt.Printf("Increased: %d decreased: %d lines: %d\n", increased, decreased, len(data))
+		fmt.Printf("Increased: %d decreased: %d lines: %d\n",
+				       increased, decreased, len(data))
 	},
 }
 
@@ -60,7 +61,8 @@ var day1bCmd = &cobra.Command{
 			}
 			previous = this
 		}
-		fmt.Printf("Increased: %d decreased: %d lines: %d\n", increased, decreased, len(data))
+		fmt.Printf("Increased: %d decreased: %d lines: %d\n",
+				       	  increased, decreased, len(data))
 	},
 }
 
@@ -100,7 +102,7 @@ var day2bCmd = &cobra.Command{
 		for _, str := range data {
 		        parts := strings.Split(str, " ")
 			num, _ := strconv.Atoi(parts[1])
-		    	switch foo := str[:2]; foo {
+		    	switch str[:2] {
 			case "up":
 			     aim -= num
 			case "do":
@@ -117,16 +119,6 @@ var day2bCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(day1aCmd, day1bCmd, day2aCmd, day2bCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// day1Cmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// day1Cmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 func ReadDay1(filename string) []int {
