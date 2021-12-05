@@ -3,6 +3,7 @@ module aoc2021
 go 1.17
 
 require (
+	github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.9.0
 )

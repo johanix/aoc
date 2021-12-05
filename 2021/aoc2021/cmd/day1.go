@@ -191,14 +191,14 @@ func Remover(dmap map[string]bool, keeper rune, keylen int, pc, nc map[int]int) 
 	var remaining = len(dmap)
 
 	for n := 0; n < keylen; n++ {
-		keep := "0"
-		if pc[n] > nc[n] {
-			keep = "1"
-		} else if pc[n] < nc[n] {
-			keep = "0"
-		} else if pc[n] == nc[n] {
-			keep = string(keeper)
-		}
+		// keep := "0"
+//		if pc[n] > nc[n] {
+//			keep = "1"
+//		} else if pc[n] < nc[n] {
+//			keep = "0"
+//		} else if pc[n] == nc[n] {
+//			keep = string(keeper)
+//		}
 		for k, _ := range dmap {
 			if pc[n] > nc[n] { // keep data with pos(n) = 1
 				if k[n] == '1' {
