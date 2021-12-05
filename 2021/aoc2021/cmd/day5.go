@@ -11,7 +11,6 @@ import (
 	"strconv"
 	"strings"
 
-	// "github.com/ryanuber/columnize"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +27,7 @@ var day5bCmd = &cobra.Command{
 	Use:   "day5b",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-
+	     usediags = true
 	     RunDay5(datafile, true) // force use of diagonals for part B.
 	},
 }
@@ -42,10 +41,7 @@ func RunDay5(datafile string, usediags bool) {
 
 		lines := ReadDay5(datafile)
 		fmt.Printf("We have %d lines\n", len(lines))
-		fmt.Printf("Lines:\n %v\n", lines)
-		for _, l := range lines {
-			l.Print()
-		}
+		// fmt.Printf("Lines:\n %v\n", lines)
 
 		// compute intersections
 		intersections := map[Coord]int{}
@@ -55,11 +51,7 @@ func RunDay5(datafile string, usediags bool) {
 					continue
 				}
 				var ip []Coord
-				if usediags {
-					ip = l1.IntersectionPointsNG(l2)
-				} else {
-					ip = l1.IntersectionPoints(l2)
-				}
+				ip = l1.IntersectionPoints(l2)
 				if len(ip) > 0 {
 					for _, pt := range ip {
 						intersections[pt]++
@@ -126,10 +118,6 @@ func NewLine(ci []int) Line {
 		LineType: lt,
 		Slope:    slope,
 	}
-//	if lt == "diagonal" {
-//	   fmt.Printf("New dia line (%d,%d)->(%d,%d): %s\n",
-//			ci[0], ci[1], ci[2], ci[3], l.Sprint())
-//	}
 	return l
 }
 
@@ -140,6 +128,7 @@ type Coord struct {
 
 // if l = horizontal, then Y must match and X1 <= X <= X2
 // if l = vertical, then X must match and Y1 <= Y <= Y2
+
 func (l *Line) Intersects(pt Coord) bool {
 	if l.LineType == "horizontal" {
 		if pt.Y == l.Coords[1] && l.Coords[0] <= pt.X && pt.X <= l.Coords[2] {
@@ -151,22 +140,7 @@ func (l *Line) Intersects(pt Coord) bool {
 			return true
 		}
 		return false
-	}
-	return false
-}
-
-func (l *Line) IntersectsNG(pt Coord) bool {
-	if l.LineType == "horizontal" {
-		if pt.Y == l.Coords[1] && l.Coords[0] <= pt.X && pt.X <= l.Coords[2] {
-			return true
-		}
-		return false
-	} else if l.LineType == "vertical" {
-		if pt.X == l.Coords[0] && l.Coords[1] <= pt.Y && pt.Y <= l.Coords[3] {
-			return true
-		}
-		return false
-	} else if l.LineType == "diagonal" {
+	} else if l.LineType == "diagonal" && usediags {
 		ly := l.Coords[1]
 		for lx := l.Coords[0]; lx <= l.Coords[2]; lx++ {
 			if pt.Y == ly && pt.X == lx {
@@ -199,35 +173,11 @@ func (l *Line) IntersectionPoints(l2 Line) []Coord {
 				ips = append(ips, c)
 			}
 		}
-	}
-	return ips
-}
-
-func (l *Line) IntersectionPointsNG(l2 Line) []Coord {
-	var ips []Coord
-	l2t := l2.LineType
-	if l2t == "error" || l.LineType == "error" {
-		return ips
-	}
-	if l2t == "horizontal" {
-		for x := l2.Coords[0]; x <= l2.Coords[2]; x++ {
-			c := Coord{X: x, Y: l2.Coords[1]}
-			if l.IntersectsNG(c) {
-				ips = append(ips, c)
-			}
-		}
-	} else if l2t == "vertical" {
-		for y := l2.Coords[1]; y <= l2.Coords[3]; y++ {
-			c := Coord{X: l2.Coords[0], Y: y}
-			if l.IntersectsNG(c) {
-				ips = append(ips, c)
-			}
-		}
-	} else if l2t == "diagonal" {
+	} else if l2t == "diagonal" && usediags {
 		y := l2.Coords[1]
 		for x := l2.Coords[0]; x <= l2.Coords[2]; x++ {
 			c := Coord{X: x, Y: y}
-			if l.IntersectsNG(c) {
+			if l.Intersects(c) {
 				ips = append(ips, c)
 			}
 			y = y + l2.Slope
