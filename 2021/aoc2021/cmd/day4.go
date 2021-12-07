@@ -26,7 +26,7 @@ var day4aCmd = &cobra.Command{
 		var err error
 
 		if datafile == "" {
-			datafile = "day-4.dat"
+			datafile = "data/day-4.dat"
 		}
 
 		file, err := os.Open(datafile)

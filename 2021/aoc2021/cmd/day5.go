@@ -36,7 +36,7 @@ var usediags bool
 
 func RunDay5(datafile string, usediags bool) {
 		if datafile == "" {
-			datafile = "day-4.test"
+			datafile = "data/day-5.dat"
 		}
 
 		lines := ReadDay5(datafile)

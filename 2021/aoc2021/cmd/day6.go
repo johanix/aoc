@@ -33,7 +33,7 @@ var day6bCmd = &cobra.Command{
 
 func Runner() {
 	if datafile == "" {
-		datafile = "day-4.dat"
+		datafile = "data/day-6.dat"
 	}
 
 	fish := ReadFish(datafile)

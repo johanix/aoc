@@ -18,7 +18,7 @@ var day1aCmd = &cobra.Command{
 	Use: "day1a",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		data := ReadDay1("day-1a.dat")
+		data := ReadDay1("data/day-1a.dat")
 
 		var previous, increased, decreased int
 		for line, n := range data {
@@ -42,7 +42,7 @@ var day1bCmd = &cobra.Command{
 	Use: "day1b",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		data := ReadDay1("day-1a.dat")
+		data := ReadDay1("data/day-1a.dat")
 
 		var previous, increased, decreased int
 		for line, n := range data[:len(data)-2] {
@@ -67,7 +67,7 @@ var day2aCmd = &cobra.Command{
 	Use: "day2a",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		data := ReadDay2("day-2a.dat")
+		data := ReadDay2("data/day-2a.dat")
 
 		var depth, dist int
 		for _, str := range data {
@@ -91,7 +91,7 @@ var day2bCmd = &cobra.Command{
 	Use: "day2b",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		data := ReadDay2("day-2a.dat")
+		data := ReadDay2("data/day-2a.dat")
 
 		var depth, dist, aim int
 		for _, str := range data {
@@ -116,7 +116,7 @@ var day3aCmd = &cobra.Command{
 	Use: "day3a",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		data := ReadDay2("day-3.dat")
+		data := ReadDay2("data/day-3.dat")
 
 		var pcounters = make(map[int]int, 1000)
 		var ncounters = make(map[int]int, 1000)
@@ -153,7 +153,7 @@ var day3bCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if datafile == "" {
-			datafile = "day-3.dat"
+			datafile = "data/day-3.dat"
 		}
 		oxydata := ReadDay2(datafile)
 		co2data := ReadDay2(datafile)
