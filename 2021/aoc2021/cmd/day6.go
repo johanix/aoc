@@ -38,7 +38,7 @@ func Runner() {
 
 	fish := ReadFish(datafile)
 	sfish := SortFish(fish)
-	days := ReadDays()
+	days := ReadInt("Days to iterate", 18)
 	PrintFishNG("Initial state", 0, sfish)
 	for day := 1; day <= days; day++ {
 		sfish = RunDayNG(sfish)
@@ -90,20 +90,19 @@ func RunDayNG(sortedfish []int) []int {
 	return sfish
 }
 
-func ReadDays() int {
-	foo := 18
+func ReadInt(question string, foo int) int {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf("%s [%d]: ", "Days to iterate", foo)
+	fmt.Printf("%s [%d]: ", question, foo)
 	text, _ := reader.ReadString('\n')
 	if text == "\n" {
 		fmt.Printf("[empty response, using default]\n")
 		return foo
 	} else {
-		days, err := strconv.Atoi(strings.TrimSuffix(text, "\n"))
+		ans, err := strconv.Atoi(strings.TrimSuffix(text, "\n"))
 		if err != nil {
 			log.Fatalf("Error from atoi: %v\n", err)
 		}
-		return days
+		return ans
 	}
 }
 

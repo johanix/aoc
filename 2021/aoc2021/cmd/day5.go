@@ -124,6 +124,8 @@ func NewLine(ci []int) Line {
 type Coord struct {
 	X int
 	Y int
+	HasFlashed bool // day 11
+	LowPoint *Coord  // day 9	
 }
 
 // if l = horizontal, then Y must match and X1 <= X <= X2
